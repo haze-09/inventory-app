@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>beep-boop.wav</title>
+</head>
+<body>
+    <%- include('partials/header') %> 
+    <% if (locals.tracks){ %>
+        <% tracks.forEach(track=> { %>
+            <%- include('partials/track',{track:track}) %>            
+        <% }); %>
+     <% } else { %>
+        <p>no tracks added yet</p>
+        <% } %>   
+
+    <a href="/add">Add track</a>      
+</body>
+</html>

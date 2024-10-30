@@ -4,6 +4,8 @@ const selectAllTracks =`
 SELECT
     t.track_name AS track,
     a.album_name as album,
+    a.album_art_url as img,
+    a.year as year,
     string_agg(DISTINCT ar.artist_name, ', ') AS artists,
     string_agg(DISTINCT g.genre_name, ', ') AS genres
 FROM tracks t
@@ -12,7 +14,7 @@ JOIN track_artists ta ON t.track_id = ta.track_id
 JOIN artists ar ON ta.artist_id = ar.artist_id
 JOIN track_genres tg ON t.track_id = tg.track_id
 JOIN genres g ON tg.genre_id = g.genre_id
-GROUP BY t.track_id, a.album_name
+GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name; `;
 
 
@@ -20,6 +22,8 @@ const selectArtist = `
 SELECT
     t.track_name AS track,
     a.album_name as album,
+    a.album_art_url as img,
+    a.year as year,
     string_agg(DISTINCT ar.artist_name, ', ') AS artists,
     string_agg(DISTINCT g.genre_name, ', ') AS genres
 FROM tracks t
@@ -35,7 +39,7 @@ WHERE t.track_id IN (
     JOIN artists ar2 ON ta2.artist_id = ar2.artist_id
     WHERE ar2.artist_name = $1
 )
-GROUP BY t.track_id,a.album_name
+GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name; `;
 
 
@@ -43,6 +47,8 @@ const selectGenre = `
 SELECT
     t.track_name AS track,
     a.album_name as album,
+    a.album_art_url as img,
+    a.year as year,
     string_agg(DISTINCT ar.artist_name, ', ') AS artists,
     string_agg(DISTINCT g.genre_name, ', ') AS genres
 FROM tracks t
@@ -58,7 +64,7 @@ WHERE t.track_id IN (
     JOIN genres g2 ON tg2.genre_id = g2.genre_id
     WHERE g2.genre_name = $1
 )
-GROUP BY t.track_id,a.album_name
+GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name;`;
 
 
@@ -66,6 +72,8 @@ const selectAlbum = `
 SELECT
     t.track_name AS track,
     a.album_name as album,
+    a.album_art_url as img,
+    a.year as year,
     string_agg(DISTINCT ar.artist_name, ', ') AS artists,
     string_agg(DISTINCT g.genre_name, ', ') AS genres
 FROM tracks t
@@ -75,7 +83,7 @@ JOIN artists ar ON ta.artist_id = ar.artist_id
 JOIN track_genres tg ON t.track_id = tg.track_id
 JOIN genres g ON tg.genre_id = g.genre_id
 WHERE album_name = $1
-GROUP BY t.track_id, a.album_name
+GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name;`;
 
 export async function getAllTracks(){
