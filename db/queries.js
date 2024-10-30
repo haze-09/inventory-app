@@ -17,6 +17,8 @@ JOIN genres g ON tg.genre_id = g.genre_id
 GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name; `;
 
+const totalTracks ='SELECT count(*) FROM tracks;';
+
 
 const selectArtist = `
 SELECT
@@ -89,6 +91,11 @@ ORDER BY t.track_name;`;
 export async function getAllTracks(){
     const {rows} = await pool.query(selectAllTracks);
     return rows;
+}
+
+export async function getTotal(){
+    const {rows} = await pool.query(totalTracks);
+    return rows[0].count;
 }
 
 export async function getArtist(artist) {

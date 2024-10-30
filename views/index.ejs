@@ -11,7 +11,7 @@
     <%- include('partials/header') %> 
     <% if (locals.tracks){ %>
         <% tracks.forEach(track=> { %>
-            <%- include('partials/track',{track:track}) %>            
+            <%- include('partials/track',{track:track ,count: count}) %>            
         <% }); %>
      <% } else { %>
         <p>no tracks added yet</p>

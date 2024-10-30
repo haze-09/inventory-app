@@ -1,5 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Pixelify+Sans:wght@400..700&display=swap");
 
+@font-face {
+    font-family: Europa;
+    src: url(../fonts/EuropaGroteskSH-Reg.woff);
+}
+
+body{
+    margin: 0;
+    font-family: Europa;
+    /* letter-spacing: 0.75px; */
+}
+
+header{
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+}
 h1 {
   font-family: "Pinyon Script", cursive;
   font-weight: 400;
