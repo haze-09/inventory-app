@@ -1,9 +1,16 @@
 <header>
     <h1>Beep-Boop.Wav</h1>
-    <form action="" method="get">
-        <input type="text" name="search" placeholder="search">
+    <form id="search" action="" method="get">
+        <input  type="text" name="search" placeholder="search">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
-    <p><%= count  %> Tracks in library</p>
+    
+    <div>
+        <a href="/add">Add Track</a>
+        <p>|</p>
+        <p><%= count  %> tracks in library</p>
+        
+        
+    </div>
     
 </header>
