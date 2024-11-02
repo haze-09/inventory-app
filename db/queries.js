@@ -6,8 +6,14 @@ SELECT
     a.album_name as album,
     a.album_art_url as img,
     a.year as year,
-    string_agg(DISTINCT ar.artist_name, ', ') AS artists,
-    string_agg(DISTINCT g.genre_name, ', ') AS genres
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', ar.artist_name,
+        'id', ar.artist_id
+    )) AS artists,
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', g.genre_name,
+        'id', g.genre_id
+    )) AS genres
 FROM tracks t
 JOIN albums a ON t.album_id = a.album_id
 JOIN track_artists ta ON t.track_id = ta.track_id
@@ -26,8 +32,14 @@ SELECT
     a.album_name as album,
     a.album_art_url as img,
     a.year as year,
-    string_agg(DISTINCT ar.artist_name, ', ') AS artists,
-    string_agg(DISTINCT g.genre_name, ', ') AS genres
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', ar.artist_name,
+        'id', ar.artist_id
+    )) AS artists,
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', g.genre_name,
+        'id', g.genre_id
+    )) AS genres
 FROM tracks t
 JOIN albums a ON t.album_id = a.album_id
 JOIN track_artists ta ON t.track_id = ta.track_id
@@ -51,8 +63,14 @@ SELECT
     a.album_name as album,
     a.album_art_url as img,
     a.year as year,
-    string_agg(DISTINCT ar.artist_name, ', ') AS artists,
-    string_agg(DISTINCT g.genre_name, ', ') AS genres
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', ar.artist_name,
+        'id', ar.artist_id
+    )) AS artists,
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', g.genre_name,
+        'id', g.genre_id
+    )) AS genres
 FROM tracks t
 JOIN albums a ON t.album_id = a.album_id
 JOIN track_artists ta ON t.track_id = ta.track_id
@@ -76,8 +94,14 @@ SELECT
     a.album_name as album,
     a.album_art_url as img,
     a.year as year,
-    string_agg(DISTINCT ar.artist_name, ', ') AS artists,
-    string_agg(DISTINCT g.genre_name, ', ') AS genres
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', ar.artist_name,
+        'id', ar.artist_id
+    )) AS artists,
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', g.genre_name,
+        'id', g.genre_id
+    )) AS genres
 FROM tracks t
 JOIN albums a ON t.album_id = a.album_id
 JOIN track_artists ta ON t.track_id = ta.track_id

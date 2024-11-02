@@ -1,16 +1,36 @@
 <div class="card">
     <div class="info">
-        <div class="image-wrapper"><img src=<%= track.img %> alt=""></div>
+        <div class="image-wrapper"><img src=<%=track.img %> alt=""></div>
         <div>
-            <h2><%= track.track  %></h2>
-            <p><%= track.artists %></p>
-            <p><%= tracks.album %></p>
-            <p><%= track.genres %></p>
-            <p><%= track.year  %></p>
+            <h2>
+                <%= track.track %>
+            </h2>
+            <p>
+                <% track.artists.forEach((artist, index)=> { %>
+                    <a class="links" href="/filter/artist/<%= artist.name %>">
+                        <%= artist.name %>
+                    </a>
+                    <%= index !==track.artists.length - 1 ? ', ' : '' %>
+                    <% }) %>
+            </p>
+            <p class="album">
+                <a class="links" href="/filter/album/<%= track.album %>"><%= track.album %></a>
+            </p>
+            <p>
+                <% track.genres.forEach((genre, index)=> { %>
+                    <a class="links unimp" href="/filter/genre/<%= genre.name %>">
+                        <%= genre.name %>
+                    </a>
+                    <%= index !==track.genres.length - 1 ? ', ' : '' %>
+                    <% }) %>
+            </p>
+            <p>
+                <a class="links unimp" href="/filter/year/<%= track.year %>"><%= track.year %></a>
+            </p>
         </div>
     </div>
     <div class="buttons">
         <button><i class="fa-solid fa-pen-to-square"></i></button>
-        <button><i class="fa-solid fa-trash"></i></button>
+        <button class="delete"><i class="fa-solid fa-trash"></i></button>
     </div>
 </div>

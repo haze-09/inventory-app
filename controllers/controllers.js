@@ -5,5 +5,5 @@ export const getTracks = async (req, res) => {
   let count = await db.getTotal();
   console.log(tracks);
   console.log(count);
-  res.render("index", { tracks: tracks, count: count });
+  res.render("index", { tracks: tracks, count: count, title: 'All Tracks' });
 };
