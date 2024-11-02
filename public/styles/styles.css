@@ -1,34 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Pixelify+Sans:wght@400..700&display=swap");
 
 @font-face {
-    font-family: Europa;
-    src: url(../fonts/EuropaGroteskSH-Reg.woff);
+  font-family: Europa;
+  src: url(../fonts/EuropaGroteskSH-Reg.woff);
 }
 
-body{
-    margin: 0;
-    font-family: Europa;
-    font-size: 1.2rem;
-    background: rgb(255,255,255);
+body {
+  margin: 0;
+  font-family: Europa;
+  font-size: 1.2rem;
+  background: rgb(255, 255, 255);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 2rem;
 }
 
 /* header styling */
 
-header{
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: sticky;
-    background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 85%, rgba(255,255,255,0) 100%);
-    padding-bottom: 2rem;
+header {
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 85%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding-bottom: 2rem;
 }
-header>div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+header > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 h1 {
@@ -37,60 +49,158 @@ h1 {
   font-style: normal;
 }
 
-#search{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
+#search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
 }
 
-#search > input{
-    cursor: pointer;
-    background: inherit;
-    font-family: inherit;
-    padding: 0.3rem 0.7rem;
-    border-radius: 1.25rem;
-    border: 2px solid black;
-    font-size: 1.2rem;
-    max-width: 450px;
+#search > input {
+  cursor: pointer;
+  background: inherit;
+  font-family: inherit;
+  padding: 0.3rem 0.7rem;
+  border-radius: 1.25rem;
+  border: 2px solid black;
+  font-size: 1.2rem;
+  max-width: 450px;
 }
 
-#search >button{
-    cursor: pointer;
-    font-size: 1.5rem;
-    border: none;
-    background: none;
-    transition: 0.1s ease-out;
+#search > button {
+  cursor: pointer;
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  transition: 0.1s ease-out;
 }
 
-#search>button:hover{
-    transform: scale(1.2);
+#search > button:hover {
+  transform: scale(1.2);
 }
 
-:focus-visible{
-    outline: 2px solid rgb(150, 150, 150);
+:focus-visible {
+  outline: 2px solid rgb(150, 150, 150);
 }
-
 
 /* tracks styling */
 
-h2{
-    font-weight: normal;
+.card {
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+  width: 80%;
+  font-size: 1rem;
+
+  -webkit-box-shadow: -1px 7px 10px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -1px 7px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 3px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
+.card > div {
+  display: flex;
+  gap: 1rem;
+}
 
+.image-wrapper{
+  flex: 1;
+  display: flex;
+  max-width: 50%;
+}
 
+.image-wrapper > img {
 
+  border-radius: 0.5rem;
+  align-self: center;
+  max-width: 100%;
+  object-fit: contain;
+
+  -webkit-box-shadow: -1px 7px 10px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -1px 7px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 3px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card > div > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.card>div>div>p{
+  margin: 0;
+  margin-top: 0.25rem;
+  color: #00000070;
+}
+
+.card>div>button{
+  flex:1
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 1rem;
+  margin: 0;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  overflow-wrap: break-word;
+}
 
 /* media queries */
 
-@media (min-width:375px) {
-    #search{
-        width: 80%;
-    }
-    #search>input{
-        flex: 1;
-    }
-    
+@media (min-width: 375px) {
+  #search {
+    width: 80%;
+  }
+  #search > input {
+    flex: 1;
+  }
+}
+
+@media (min-width: 450px) and (max-width: 800px) {
+  .card {
+    flex-direction: row;
+    width: 60%;
+  }
+
+  .buttons{
+    flex-direction: column;
+  }
+
+  h2{
+    font-size: 2rem;
+  }
+}
+
+@media(min-width:800px){
+  body{
+    display: flex;
+    flex-direction: column;
+  }
+
+  main{
+    align-self: center;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr) );
+    gap: 2rem;
+  }
+
+  .info {
+    flex-direction: column;
+  }
+
+  .card{
+    width: 100%;
+    height: 100%;
+  }
+
+  .image-wrapper{
+    max-width: 100%;
+  }
+
 }

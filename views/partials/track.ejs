@@ -1,10 +1,16 @@
-<div>
-    <img src=<%= track.img %> alt="">
-    <div>
-        <h2><%= track.track  %></h2>
-        <p><%= track.artists %></p>
-        <p><%= tracks.album %></p>
-        <p><%= track.genres %></p>
-        <p><%= track.year  %></p>
+<div class="card">
+    <div class="info">
+        <div class="image-wrapper"><img src=<%= track.img %> alt=""></div>
+        <div>
+            <h2><%= track.track  %></h2>
+            <p><%= track.artists %></p>
+            <p><%= tracks.album %></p>
+            <p><%= track.genres %></p>
+            <p><%= track.year  %></p>
+        </div>
+    </div>
+    <div class="buttons">
+        <button><i class="fa-solid fa-pen-to-square"></i></button>
+        <button><i class="fa-solid fa-trash"></i></button>
     </div>
 </div>
