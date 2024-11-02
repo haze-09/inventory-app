@@ -88,6 +88,30 @@ GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name;`;
 
 
+const selectYear = `
+SELECT
+    t.track_name AS track,
+    a.album_name as album,
+    a.album_art_url as img,
+    a.year as year,
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', ar.artist_name,
+        'id', ar.artist_id
+    )) AS artists,
+    JSON_AGG(DISTINCT jsonb_build_object(
+        'name', g.genre_name,
+        'id', g.genre_id
+    )) AS genres
+FROM tracks t
+JOIN albums a ON t.album_id = a.album_id
+JOIN track_artists ta ON t.track_id = ta.track_id
+JOIN artists ar ON ta.artist_id = ar.artist_id
+JOIN track_genres tg ON t.track_id = tg.track_id
+JOIN genres g ON tg.genre_id = g.genre_id
+WHERE year = $1
+GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
+ORDER BY t.track_name;`;
+
 const selectAlbum = `
 SELECT
     t.track_name AS track,
@@ -134,5 +158,10 @@ export async function getGenre(genre) {
 
 export async function getAlbum(album) {
     const {rows} = await pool.query(selectAlbum,[String(album)]);
+    return rows;    
+}
+
+export async function getYear(year) {
+    const {rows} = await pool.query(selectYear,[String(year)]);
     return rows;    
 }
