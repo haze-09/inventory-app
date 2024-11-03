@@ -23,18 +23,19 @@
 
 
 <dialog>
-    <button class="close" onclick='document.querySelector("dialog").close()'>X</button>
+    <button class="close" onclick='document.querySelector("dialog").close()'>
+        <i class="fa-solid fa-xmark"></i>
+    </button>
     <form action="/add" method="post">
         <fieldset>
             <legend>Add New Track</legend>
-            <!-- <h2>Add New Track</h2> -->
             <input type="text" name="track" placeholder="Track Name" required>
-            <div>
+            <div id="artistInputs">
                 <input type="text" name="artist" placeholder="Artist" list="artistList" required>
                 <button type="button" id="addArtist"><i class="fa-solid fa-plus"></i></button>
             </div>
             <input type="text" name="album" placeholder="Album" required>
-            <div>
+            <div id="genreInputs">
                 <input type="text" name="genre" placeholder="Genre" list="genreList">
                 <button type="button" id="addGenre"><i class="fa-solid fa-plus"></i></button>
             </div>
