@@ -2,46 +2,47 @@ import "dotenv/config";
 import pg from "pg";
 
 const SQL = `
-CREATE TABLE IF NOT EXISTS artists(
+CREATE TABLE IF NOT EXISTS artists (
     artist_id SERIAL PRIMARY KEY,
-    artist_name VARCHAR (255) NOT NULL
+    artist_name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS albums(
-    album_id  SERIAL PRIMARY KEY,
-    album_name VARCHAR (255) NOT NULL,
+CREATE TABLE IF NOT EXISTS albums (
+    album_id SERIAL PRIMARY KEY,
+    album_name VARCHAR(255) NOT NULL UNIQUE,
     year INTEGER CHECK (year BETWEEN 1000 AND 9999),
     album_art_url VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS genres(
-    genre_id  SERIAL PRIMARY KEY,
-    genre_name VARCHAR (255) NOT NULL
+CREATE TABLE IF NOT EXISTS genres (
+    genre_id SERIAL PRIMARY KEY,
+    genre_name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS tracks(
-    track_id  SERIAL PRIMARY KEY,
-    track_name VARCHAR (255) NOT NULL,
+CREATE TABLE IF NOT EXISTS tracks (
+    track_id SERIAL PRIMARY KEY,
+    track_name VARCHAR(255) NOT NULL,
     album_id INT,
     FOREIGN KEY (album_id) REFERENCES albums(album_id)
 );
 
-CREATE TABLE IF NOT EXISTS track_artists(
+CREATE TABLE IF NOT EXISTS track_artists (
     track_id INT,
     artist_id INT,
-    PRIMARY KEY (track_id,artist_id),
+    PRIMARY KEY (track_id, artist_id),
     FOREIGN KEY (track_id) REFERENCES tracks(track_id), 
     FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
 );
 
-CREATE TABLE IF NOT EXISTS track_genres(
+CREATE TABLE IF NOT EXISTS track_genres (
     track_id INT,
     genre_id INT,
-    PRIMARY KEY (track_id,genre_id),
+    PRIMARY KEY (track_id, genre_id),
     FOREIGN KEY (track_id) REFERENCES tracks(track_id),
     FOREIGN KEY (genre_id) REFERENCES genres(genre_id)
 );
 
+-- Insert initial data into the tables
 INSERT INTO artists (artist_name) VALUES
     ('Tyler the Creator'),
     ('JPEGMAFIA'),
@@ -62,8 +63,8 @@ INSERT INTO genres (genre_name) VALUES
     ('Rock'),
     ('Indie');
 
-INSERT INTO tracks (track_name,album_id) VALUES 
-    ('MASSA', 1 ),
+INSERT INTO tracks (track_name, album_id) VALUES 
+    ('MASSA', 1),
     ('JPEGULTRA!(feat. Denzel Curry)', 2),
     ('Beautiful World', 3),
     ('Analog Sentimentalism', 3),
@@ -71,20 +72,20 @@ INSERT INTO tracks (track_name,album_id) VALUES
     ('Steppa Pig', 4);
 
 INSERT INTO track_artists (track_id, artist_id) VALUES
-    (1,1),
-    (2,2),(2,5),
-    (3,3),
-    (4,3),
-    (5,2),(5,4),
-    (6,2),(6,4);
+    (1, 1),
+    (2, 2), (2, 5),
+    (3, 3),
+    (4, 3),
+    (5, 2), (5, 4),
+    (6, 2), (6, 4);
 
-INSERT INTO  track_genres (track_id,genre_id) VALUES
-    (1,1),(1,3),
-    (2,1),(2,3),
-    (3,2),(3,3),(3,4),(3,5),
-    (4,2),(4,3),(4,4),(4,5),
-    (5,1),(5,3),
-    (6,1),(6,3);
+INSERT INTO track_genres (track_id, genre_id) VALUES
+    (1, 1), (1, 3),
+    (2, 1), (2, 3),
+    (3, 2), (3, 3), (3, 4), (3, 5),
+    (4, 2), (4, 3), (4, 4), (4, 5),
+    (5, 1), (5, 3),
+    (6, 1), (6, 3);
 `;
 
 async function main() {

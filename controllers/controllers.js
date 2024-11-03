@@ -92,7 +92,19 @@ export const filterTracks = async (req, res) => {
   }
 };
 
-// export const add = async (req,res){
-//   await
+export const addTrack = async (req, res) => {
+  const trackData = {
+    trackName: req.body.track.trim(),
+    album: req.body.album.trim(),
+    year: parseInt(req.body.year),
+    albumArt: req.body.albumArtAddress.trim(),
+    artists: Array.isArray(req.body.artist)
+      ? req.body.artist
+      : [req.body.artist],
+    genres: Array.isArray(req.body.genre) ? req.body.genre : [req.body.genre],
+  };
+  console.log(trackData);
 
-// }
+  await db.addTrackToDB(trackData);
+  res.redirect("/");
+};

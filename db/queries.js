@@ -1,6 +1,6 @@
 import pool from "./pool.js";
 
-const selectAllTracks =`
+const selectAllTracks = `
 SELECT
     t.track_name AS track,
     a.album_name as album,
@@ -23,8 +23,7 @@ JOIN genres g ON tg.genre_id = g.genre_id
 GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name; `;
 
-const totalTracks ='SELECT count(*) FROM tracks;';
-
+const totalTracks = "SELECT count(*) FROM tracks;";
 
 const selectArtist = `
 SELECT
@@ -56,7 +55,6 @@ WHERE t.track_id IN (
 GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name; `;
 
-
 const selectGenre = `
 SELECT
     t.track_name AS track,
@@ -86,7 +84,6 @@ WHERE t.track_id IN (
 )
 GROUP BY t.track_id, a.album_name, a.album_art_url, a.year
 ORDER BY t.track_name;`;
-
 
 const selectYear = `
 SELECT
@@ -169,48 +166,100 @@ const allArtists = `SELECT * FROM artists`;
 
 const allGenres = `SELECT * FROM genres`;
 
+const addTrack = `
+WITH new_album AS (
+    INSERT INTO albums (album_name, year, album_art_url) 
+    VALUES ($1, $2, $3)
+    ON CONFLICT (album_name) DO UPDATE
+    SET year = EXCLUDED.year,
+        album_art_url = EXCLUDED.album_art_url
+    RETURNING album_id
+),
+new_track AS (
+    INSERT INTO tracks (track_name, album_id)
+    SELECT $4, album_id FROM new_album
+    RETURNING track_id
+),
+artist_ids AS (
+    INSERT INTO artists (artist_name)
+    SELECT unnest($5::text[])
+    ON CONFLICT (artist_name) DO UPDATE
+    SET artist_name = EXCLUDED.artist_name
+    RETURNING artist_id
+),
+track_artist_relations AS (
+    INSERT INTO track_artists (track_id, artist_id)
+    SELECT new_track.track_id, artist_ids.artist_id
+    FROM new_track, artist_ids
+    ON CONFLICT ON CONSTRAINT track_artists_pkey DO NOTHING
+),
+genre_ids AS (
+    INSERT INTO genres (genre_name)
+    SELECT unnest($6::text[])
+    ON CONFLICT (genre_name) DO UPDATE
+    SET genre_name = EXCLUDED.genre_name
+    RETURNING genre_id
+)
+INSERT INTO track_genres (track_id, genre_id)
+SELECT new_track.track_id, genre_ids.genre_id
+FROM new_track, genre_ids
+ON CONFLICT ON CONSTRAINT track_genres_pkey DO NOTHING;
+`;
+
+export async function addTrackToDB(trackData) {
+  const { album, year, albumArt, trackName, artists, genres } = trackData;
+  await pool.query(addTrack, [
+    album,
+    year,
+    albumArt,
+    trackName,
+    artists, 
+    genres, 
+  ]);
+}
+
 export async function getSearchedTracks(query) {
-    const searchParam = String(query)
-    const {rows} = await pool.query(searchTracks, [String(`%${searchParam}%`)]);  
-    return rows;  
+  const searchParam = String(query);
+  const { rows } = await pool.query(searchTracks, [String(`%${searchParam}%`)]);
+  return rows;
 }
 
-export async function getAllTracks(){
-    const {rows} = await pool.query(selectAllTracks);
-    return rows;
+export async function getAllTracks() {
+  const { rows } = await pool.query(selectAllTracks);
+  return rows;
 }
 
-export async function getAllArtists(){
-    const {rows} = await pool.query(allArtists);
-    return rows;
+export async function getAllArtists() {
+  const { rows } = await pool.query(allArtists);
+  return rows;
 }
 
-export async function getAllGenres(){
-    const {rows} = await pool.query(allGenres);
-    return rows;
+export async function getAllGenres() {
+  const { rows } = await pool.query(allGenres);
+  return rows;
 }
 
-export async function getTotal(){
-    const {rows} = await pool.query(totalTracks);
-    return rows[0].count;
+export async function getTotal() {
+  const { rows } = await pool.query(totalTracks);
+  return rows[0].count;
 }
 
 export async function getArtist(artist) {
-    const {rows} = await pool.query(selectArtist,[String(artist)]);
-    return rows;    
+  const { rows } = await pool.query(selectArtist, [String(artist)]);
+  return rows;
 }
 
 export async function getGenre(genre) {
-    const {rows} = await pool.query(selectGenre,[String(genre)]);
-    return rows;    
+  const { rows } = await pool.query(selectGenre, [String(genre)]);
+  return rows;
 }
 
 export async function getAlbum(album) {
-    const {rows} = await pool.query(selectAlbum,[String(album)]);
-    return rows;    
+  const { rows } = await pool.query(selectAlbum, [String(album)]);
+  return rows;
 }
 
 export async function getYear(year) {
-    const {rows} = await pool.query(selectYear,[String(year)]);
-    return rows;    
+  const { rows } = await pool.query(selectYear, [String(year)]);
+  return rows;
 }

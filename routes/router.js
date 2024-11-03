@@ -1,12 +1,11 @@
 import { Router } from "express";
-import { filterTracks, getTracks, search } from "../controllers/controllers.js";
+import { addTrack, filterTracks, getTracks, search } from "../controllers/controllers.js";
 
 const router = Router();
 
 router.get("/", getTracks);
 
-router.get("/add");
-router.post("/add");
+router.post("/add", addTrack);
 
 router.get("/search", search)
 
