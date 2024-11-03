@@ -9,7 +9,7 @@
     <title>Beep-Boop.Wav</title>
 </head>
 <body>
-    <%- include('partials/header',{title: title, notHome: notHome, artists: artists, genres: genres}) %>
+    <%- include('partials/header',{title: title, notHome: notHome, artists: artists, genres: genres, albums: albums}) %>
     <main>
             <% if (locals.tracks){ %>
                 <% tracks.forEach(track=> { %>

@@ -34,7 +34,7 @@
                 <input type="text" name="artist" placeholder="Artist" list="artistList" required>
                 <button type="button" id="addArtist"><i class="fa-solid fa-plus"></i></button>
             </div>
-            <input type="text" name="album" placeholder="Album" required>
+            <input type="text" name="album" placeholder="Album" list="albumList" required>
             <input type="url" name="albumArtAddress" placeholder="Album art image address" required>
             <div id="genreInputs">
                 <input type="text" name="genre" placeholder="Genre" list="genreList">
@@ -56,4 +56,12 @@
             <option value="<%= genre.genre_name %>"></option>
         <% }); %>
     </datalist>
+
+    <datalist id="albumList">
+        <% albums.forEach(album => { %>
+            <option value="<%= album.album_name %>"></option>
+        <% }); %>
+    </datalist>
+
+
 </dialog>

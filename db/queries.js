@@ -166,6 +166,8 @@ const allArtists = `SELECT * FROM artists`;
 
 const allGenres = `SELECT * FROM genres`;
 
+const allAlbums = `SELECT * FROM albums`;
+
 const addTrack = `
 WITH new_album AS (
     INSERT INTO albums (album_name, year, album_art_url) 
@@ -213,8 +215,8 @@ export async function addTrackToDB(trackData) {
     year,
     albumArt,
     trackName,
-    artists, 
-    genres, 
+    artists,
+    genres,
   ]);
 }
 
@@ -236,6 +238,11 @@ export async function getAllArtists() {
 
 export async function getAllGenres() {
   const { rows } = await pool.query(allGenres);
+  return rows;
+}
+
+export async function getAllAlbums() {
+  const { rows } = await pool.query(allAlbums);
   return rows;
 }
 

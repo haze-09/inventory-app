@@ -5,6 +5,7 @@ export const getTracks = async (req, res) => {
   let count = await db.getTotal();
   let artists = await db.getAllArtists();
   let genres = await db.getAllGenres();
+  let albums = await db.getAllAlbums();
   res.render("index", {
     tracks: tracks,
     count: count,
@@ -12,6 +13,7 @@ export const getTracks = async (req, res) => {
     notHome: false,
     artists: artists,
     genres: genres,
+    albums: albums,
   });
 };
 
@@ -21,6 +23,7 @@ export const search = async (req, res) => {
   let count = await db.getTotal();
   let artists = await db.getAllArtists();
   let genres = await db.getAllGenres();
+  let albums = await db.getAllAlbums();
 
   res.render("index", {
     tracks: tracks,
@@ -29,6 +32,7 @@ export const search = async (req, res) => {
     notHome: true,
     artists: artists,
     genres: genres,
+    albums: albums,
   });
 };
 
@@ -38,6 +42,7 @@ export const filterTracks = async (req, res) => {
   let count = await db.getTotal();
   let artists = await db.getAllArtists();
   let genres = await db.getAllGenres();
+  let albums = await db.getAllAlbums();
 
   let tracks;
 
@@ -51,6 +56,7 @@ export const filterTracks = async (req, res) => {
         notHome: true,
         artists: artists,
         genres: genres,
+        albums: albums,
       });
       break;
     case "album":
@@ -62,6 +68,7 @@ export const filterTracks = async (req, res) => {
         notHome: true,
         artists: artists,
         genres: genres,
+        albums: albums,
       });
       break;
     case "genre":
@@ -73,6 +80,7 @@ export const filterTracks = async (req, res) => {
         notHome: true,
         artists: artists,
         genres: genres,
+        albums: albums,
       });
       break;
     case "year":
@@ -84,6 +92,7 @@ export const filterTracks = async (req, res) => {
         notHome: true,
         artists: artists,
         genres: genres,
+        albums: albums,
       });
       break;
 
