@@ -8,6 +8,7 @@
     <div>
         <button onclick='document.querySelector("dialog").showModal()'>
             Add Track
+            <i class="fa-solid fa-plus"></i>
         </button>
         <p>|</p>
         <p><%= count  %> tracks in library</p>
@@ -22,15 +23,24 @@
 
 
 <dialog>
-    <button onclick='document.querySelector("dialog").close()'>X</button>
+    <button class="close" onclick='document.querySelector("dialog").close()'>X</button>
     <form action="/add" method="post">
-        <h2>Add New Track</h2>
-        <input type="text" name="track" placeholder="Track Name" required>
-        <input type="text" name="artist" placeholder="Artist" list="artistList" required>
-        <input type="text" name="album" placeholder="Album" required>
-        <input type="text" name="genre" placeholder="Genre" list="genreList">
-        <input type="number" name="year" placeholder="Year">
-        <button type="submit">Add Track</button>
+        <fieldset>
+            <legend>Add New Track</legend>
+            <!-- <h2>Add New Track</h2> -->
+            <input type="text" name="track" placeholder="Track Name" required>
+            <div>
+                <input type="text" name="artist" placeholder="Artist" list="artistList" required>
+                <button type="button" id="addArtist"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <input type="text" name="album" placeholder="Album" required>
+            <div>
+                <input type="text" name="genre" placeholder="Genre" list="genreList">
+                <button type="button" id="addGenre"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <input type="number" name="year" placeholder="Year">
+            <button type="submit">Add Track</button>
+        </fieldset>
     </form>
 
     <datalist id="artistList">
