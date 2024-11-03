@@ -1,12 +1,14 @@
 <header>
     <h1>Beep-Boop.Wav</h1>
-    <form id="search" action="" method="get">
-        <input  type="text" name="search" placeholder="search">
+    <form id="search" action="/search" method="get">
+        <input type="text" name="search" placeholder="search">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     
     <div>
-        <a href="/add">Add Track</a>
+        <button onclick='document.querySelector("dialog").showModal()'>
+            Add Track
+        </button>
         <p>|</p>
         <p><%= count  %> tracks in library</p>
         <% if(notHome === true){ %>
@@ -17,3 +19,29 @@
     <h2 class="title"><%= title %></h2>
     
 </header>
+
+
+<dialog>
+    <button onclick='document.querySelector("dialog").close()'>X</button>
+    <form action="/add" method="post">
+        <h2>Add New Track</h2>
+        <input type="text" name="track" placeholder="Track Name" required>
+        <input type="text" name="artist" placeholder="Artist" list="artistList" required>
+        <input type="text" name="album" placeholder="Album" required>
+        <input type="text" name="genre" placeholder="Genre" list="genreList">
+        <input type="number" name="year" placeholder="Year">
+        <button type="submit">Add Track</button>
+    </form>
+
+    <datalist id="artistList">
+        <% artists.forEach(artist => { %>
+            <option value="<%= artist.artist_name %>"></option>
+        <% }); %>
+    </datalist>
+
+    <datalist id="genreList">
+        <% genres.forEach(genre => { %>
+            <option value="<%= genre.genre_name %>"></option>
+        <% }); %>
+    </datalist>
+</dialog>

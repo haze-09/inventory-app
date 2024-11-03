@@ -8,11 +8,11 @@
     <title>Beep-Boop.Wav</title>
 </head>
 <body>
-    <%- include('partials/header',{title: title, notHome: notHome}) %>
+    <%- include('partials/header',{title: title, notHome: notHome, artists: artists, genres: genres}) %>
     <main>
             <% if (locals.tracks){ %>
                 <% tracks.forEach(track=> { %>
-                    <%- include('partials/track',{track:track ,count: count}) %>
+                    <%- include('partials/track',{track:track}) %>
                 <% }); %>
              <% } else { %>
                 <p>no tracks added yet</p>
